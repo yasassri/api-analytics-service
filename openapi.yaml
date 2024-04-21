@@ -6,48 +6,48 @@ info:
 servers:
   - url: http://localhost:3000
 paths:
-  /api/v1/data/summary:
+  /api/v1/data/summary/{granularity}/{apiName}/{startDate}/{startTime}/{endDate}/{endTime}:
     get:
       summary: Retrieve latency data
       description: |
         Retrieves latency data based on specified parameters.
       parameters:
         - name: granularity
-          in: query
+          in: path
           description: Granularity of the data (hour or day)
           required: true
           schema:
             type: string
             enum: [hour, day]
         - name: apiName
-          in: query
+          in: path
           description: Name of the API
           required: true
           schema:
             type: string
         - name: startDate
-          in: query
+          in: path
           description: Start date of the data range (YYYY-MM-DD)
           required: true
           schema:
             type: string
             format: date
         - name: startTime
-          in: query
+          in: path
           description: Start time of the data range (HH:mm:ss)
           required: true
           schema:
             type: string
             format: time
         - name: endDate
-          in: query
+          in: path
           description: End date of the data range (YYYY-MM-DD)
           required: true
           schema:
             type: string
             format: date
         - name: endTime
-          in: query
+          in: path
           description: End time of the data range (HH:mm:ss)
           required: true
           schema:
