@@ -1,10 +1,14 @@
 const mysql = require('mysql2/promise');
 const { log } = require('../utils/logger');
 
+const { DB_HOST, DB_PORT, DB_USER, DB_PASS} = process.env;
+
+
 const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
+  host: DB_HOST,
+  user: DB_USER,
+  password: DB_PASS,
+  port: DB_PORT,
   database: 'dbAnalytics',
   waitForConnections: true,
   connectionLimit: 10,
