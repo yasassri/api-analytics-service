@@ -6,7 +6,7 @@ spec:
     # +required Unique name for the endpoint. (This name will be used when generating the managed API)
     - name: analytics
       # +required Numeric port value that gets exposed via the endpoint
-      port: 8090
+      port: 3000
       # +required Type of traffic that the endpoint is accepting. For example: REST, GraphQL, etc.
       # Allowed values: REST, GraphQL, GRPC, TCP, UDP.
       type: REST
