@@ -31,7 +31,7 @@ router.get('/data/summary', async (req, res) => {
 
     } catch (error) {
         log.error(error);
-        return res.status(500).json({ error: 'Missing query parameters' });
+        return res.status(500).json({ error: 'Error while summarizind data.' });
     }
 
 });
