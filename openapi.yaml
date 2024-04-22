@@ -69,8 +69,8 @@ paths:
                     applicationName:
                       type: string
                       description: Name of the application
-                    ReqCount:
-                      type: string
+                    reqCount:
+                      type: integer
                       description: Number of requests
                     averageResponse:
                       type: number

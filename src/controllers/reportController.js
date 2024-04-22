@@ -4,21 +4,16 @@ const { round } = require("../utils/Utils");
 const { log } = require("../utils/logger");
 const { GRANULARITY, PERCENTILE_TABLES } = require("../Constants");
 
-async function getApplicationAnalytics(
-  granularity,
-  apiName,
-  startTime,
-  endTime
-) {
+async function getApplicationAnalytics( granularity, apiName, startTime, endTime) {
   log.debug(
     "Getting Application Analytics. API : " +
-      apiName +
-      " StartTime: " +
-      startTime +
-      " Endtime: " +
-      endTime +
-      " Granularity: " +
-      granularity
+    apiName +
+    " StartTime: " +
+    startTime +
+    " Endtime: " +
+    endTime +
+    " Granularity: " +
+    granularity
   );
   let applicationNames = [];
   let applicationIds = [];
@@ -31,7 +26,7 @@ async function getApplicationAnalytics(
   try {
     pool = await getDBPool();
     const tableName = getTableName(granularity);
-    const summaryFetchQuery = `SELECT applicationId, applicationName, SUM(eventCount) AS ReqCount, ROUND(AVG(averageResponse), 2) AS averageResponse, MIN(minResponseTime) AS minResponseTime, MAX(maxResponseTime) AS maxResponseTime                                
+    const summaryFetchQuery = `SELECT applicationId, applicationName, CAST(SUM(eventCount) AS SIGNED) AS reqCount, ROUND(AVG(averageResponse), 2) AS averageResponse, MIN(minResponseTime) AS minResponseTime, MAX(maxResponseTime) AS maxResponseTime                                
                                 FROM ${tableName} WHERE apiName = '${apiName}' AND AGG_TIMESTAMP <= ${endTime} AND AGG_TIMESTAMP >= ${startTime}
                                 GROUP BY applicationId, applicationName;`;
     log.debug("Summary fetch Query: " + summaryFetchQuery);
@@ -96,7 +91,7 @@ async function getLatencyData(granularity, apiName, startTime, endTime) {
         log.info("Done " + JSON.stringify(result));
         log.info(
           "Total Applications To be processes : " +
-            JSON.stringify(processMap.size)
+          JSON.stringify(processMap.size)
         );
         var data = await processRows(processMap);
         sql.close();
