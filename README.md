@@ -1,3 +1,3 @@
-# api-reports
+# API Analytics Service
 
-Node App to generate Analytics reports
+A node service to provide API analytics information. And a Ballerina task to summerize data. 
