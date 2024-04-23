@@ -1,0 +1,8 @@
+[package]
+org = "ycr"
+name = "data_summerize_task"
+version = "1.0.0"
+distribution = "2201.8.6"
+
+[build-options]
+observabilityIncluded = true

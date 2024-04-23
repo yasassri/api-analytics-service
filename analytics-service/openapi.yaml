@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  title: Latency Data API
+  description: API to retrieve latency data
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/v1/data/summary/{granularity}/{apiName}/{startDate}/{startTime}/{endDate}/{endTime}:
+    get:
+      summary: Retrieve latency data
+      description: |
+        Retrieves latency data based on specified parameters.
+      parameters:
+        - name: granularity
+          in: path
+          description: Granularity of the data (hour or day)
+          required: true
+          schema:
+            type: string
+            enum: [hour, day]
+        - name: apiName
+          in: path
+          description: Name of the API
+          required: true
+          schema:
+            type: string
+        - name: startDate
+          in: path
+          description: Start date of the data range (YYYY-MM-DD)
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: startTime
+          in: path
+          description: Start time of the data range (HH:mm:ss)
+          required: true
+          schema:
+            type: string
+            format: time
+        - name: endDate
+          in: path
+          description: End date of the data range (YYYY-MM-DD)
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: endTime
+          in: path
+          description: End time of the data range (HH:mm:ss)
+          required: true
+          schema:
+            type: string
+            format: time
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    applicationId:
+                      type: string
+                      description: ID of the application
+                    applicationName:
+                      type: string
+                      description: Name of the application
+                    reqCount:
+                      type: integer
+                      description: Number of requests
+                    averageResponse:
+                      type: number
+                      format: float
+                      description: Average response time
+                    minResponseTime:
+                      type: integer
+                      description: Minimum response time
+                    maxResponseTime:
+                      type: integer
+                      description: Maximum response time
+        '400':
+          description: Bad request
+        '404':
+          description: Not found
+        '401':
+          description: Authentication failed
+  /api/v1/apis:
+    get:
+      summary: Get available APIs
+      description: Retrieves the list of available APIs.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  description: Name of the API
+        '404':
+          description: Not found
+        '401':
+          description: Authentication failed
+  /api/v1/summerize:
+    get:
+      summary: Start data summerization process
+      description: Start data summerization process
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: string
+                items:
+                  type: string
+                  description: message
+        '404':
+          description: Not found
+        '401':
+          description: Authentication failed
+        '400':
+          description: Process already running
