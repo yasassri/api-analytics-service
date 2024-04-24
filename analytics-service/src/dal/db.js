@@ -5,13 +5,13 @@ const { DB_HOST, DB_PORT, DB_USER, DB_PASS} = process.env;
 
 
 const pool = mysql.createPool({
-  // host: DB_HOST,
-  // user: DB_USER,
-  // password: DB_PASS,
-  // port: DB_PORT,
-  host: 'localhost',
-  user: 'root',
-  password: 'root123456',
+  host: DB_HOST,
+  user: DB_USER,
+  password: DB_PASS,
+  port: DB_PORT,
+  // host: 'localhost',
+  // user: 'root',
+  // password: 'root123456',
   database: 'dbAnalytics',
   waitForConnections: true,
   connectionLimit: 10,
